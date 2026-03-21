@@ -47,6 +47,34 @@ Default endpoint:
 
 `http://127.0.0.1:3000/mcp`
 
+### Docker (simple local run)
+
+1. Copy and configure env values:
+
+```bash
+cp .env.example .env
+# PowerShell:
+# Copy-Item .env.example .env
+```
+
+1. Build and run:
+
+```bash
+docker compose up --build -d
+```
+
+1. Check the service:
+
+```bash
+curl http://127.0.0.1:3000/health
+```
+
+1. Stop:
+
+```bash
+docker compose down
+```
+
 ### STDIO (optional local transport)
 
 ```bash

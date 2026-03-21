@@ -1,0 +1,14 @@
+services:
+  pf-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pf-mcp
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 3000
