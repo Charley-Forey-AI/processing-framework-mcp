@@ -1,0 +1,4 @@
+auth-state/
+__pycache__/
+*.pyc
+scrape-failures.json

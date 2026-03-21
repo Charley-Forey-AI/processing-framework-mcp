@@ -1,0 +1,77 @@
+import { z } from "zod";
+export function registerAuthTools(server, auth) {
+    server.registerTool("pf_tid_login_url", {
+        title: "Get TID Login URL",
+        description: "Generate a Trimble Identity OAuth login URL with PKCE. Call this first before using PF API tools.",
+        inputSchema: {
+            redirect_uri: z
+                .string()
+                .url()
+                .optional()
+                .describe("Optional redirect URI override."),
+        },
+        outputSchema: {
+            login_url: z.string(),
+            state: z.string(),
+            redirect_uri: z.string(),
+            instructions: z.string(),
+        },
+    }, async ({ redirect_uri }) => {
+        try {
+            const result = auth.createLoginUrl(redirect_uri);
+            return {
+                structuredContent: result,
+                content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+            };
+        }
+        catch (error) {
+            return {
+                isError: true,
+                content: [{ type: "text", text: error instanceof Error ? error.message : String(error) }],
+            };
+        }
+    });
+    server.registerTool("pf_tid_exchange_code", {
+        title: "Exchange TID Authorization Code",
+        description: "Exchange the authorization code from Trimble Identity redirect for access and refresh tokens.",
+        inputSchema: {
+            code: z.string().describe("Authorization code from the redirect URL."),
+            state: z.string().optional().describe("State returned from redirect."),
+            redirect_uri: z.string().url().optional().describe("Optional redirect URI override."),
+        },
+        outputSchema: {
+            ok: z.boolean(),
+            expires_at: z.number().optional(),
+        },
+    }, async ({ code, state, redirect_uri }) => {
+        try {
+            const result = await auth.exchangeCode({ code, state, redirect_uri });
+            return {
+                structuredContent: result,
+                content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+            };
+        }
+        catch (error) {
+            return {
+                isError: true,
+                content: [{ type: "text", text: error instanceof Error ? error.message : String(error) }],
+            };
+        }
+    });
+    server.registerTool("pf_tid_status", {
+        title: "Get TID Session Status",
+        description: "Check whether a valid Trimble Identity access token is currently available.",
+        inputSchema: {},
+        outputSchema: {
+            authenticated: z.boolean(),
+            expires_at: z.number().optional(),
+            has_refresh_token: z.boolean(),
+        },
+    }, async () => {
+        const result = auth.getStatus();
+        return {
+            structuredContent: result,
+            content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
+        };
+    });
+}

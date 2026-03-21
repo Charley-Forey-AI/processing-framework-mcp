@@ -1,0 +1,185 @@
+{
+  "base_url": "https://docs.trimblecloud.com/processing-framework/",
+  "pages": [
+    {
+      "url": "./",
+      "path": "index",
+      "section": "root"
+    },
+    {
+      "url": "content/concepts/engines/",
+      "path": "concepts/engines",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/events/",
+      "path": "concepts/events",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/deployments/",
+      "path": "concepts/deployments",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/deployment-secrets/",
+      "path": "concepts/deployment-secrets",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/workspaces/",
+      "path": "concepts/workspaces",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/operations/",
+      "path": "concepts/operations",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/procedures/",
+      "path": "concepts/procedures",
+      "section": "concepts"
+    },
+    {
+      "url": "content/concepts/executions/",
+      "path": "concepts/executions",
+      "section": "concepts"
+    },
+    {
+      "url": "content/how-to-guides/getting-started/",
+      "path": "how-to-guides/getting-started",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/data-transformation/define/",
+      "path": "how-to-guides/data-transformation/define",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/data-transformation/operations/",
+      "path": "how-to-guides/data-transformation/operations",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/data-transformation/procedure/",
+      "path": "how-to-guides/data-transformation/procedure",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/data-transformation/execution/",
+      "path": "how-to-guides/data-transformation/execution",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/data-transformation/debugging/",
+      "path": "how-to-guides/data-transformation/debugging",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/basics/",
+      "path": "how-to-guides/engine-development/basics",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/interface/",
+      "path": "how-to-guides/engine-development/interface",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/step-by-step/",
+      "path": "how-to-guides/engine-development/step-by-step",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/local-testing/",
+      "path": "how-to-guides/engine-development/local-testing",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/api/",
+      "path": "how-to-guides/engine-development/api",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/issues-solutions/",
+      "path": "how-to-guides/engine-development/issues-solutions",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/engine-development/lifecycle/",
+      "path": "how-to-guides/engine-development/lifecycle",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/workspaces/basics/",
+      "path": "how-to-guides/workspaces/basics",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/workspaces/manage/",
+      "path": "how-to-guides/workspaces/manage",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/workspaces/usage/",
+      "path": "how-to-guides/workspaces/usage",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/how-to-guides/workspaces/video/",
+      "path": "how-to-guides/workspaces/video",
+      "section": "how-to-guides"
+    },
+    {
+      "url": "content/reference/overview/",
+      "path": "reference/overview",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/oas/",
+      "path": "reference/oas",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/tdsplitengine/overview/",
+      "path": "reference/tdsplitengine/overview",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/tdsplitengine/referencedocs/",
+      "path": "reference/tdsplitengine/referencedocs",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/sdk/dotnet/overview/",
+      "path": "reference/sdk/dotnet/overview",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/sdk/dotnet/referencedocs/",
+      "path": "reference/sdk/dotnet/referencedocs",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/sdk/python/overview/",
+      "path": "reference/sdk/python/overview",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/sdk/python/referencedocs/",
+      "path": "reference/sdk/python/referencedocs",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/sdk/javascript/overview/",
+      "path": "reference/sdk/javascript/overview",
+      "section": "reference"
+    },
+    {
+      "url": "content/reference/sdk/javascript/referencedocs/",
+      "path": "reference/sdk/javascript/referencedocs",
+      "section": "reference"
+    }
+  ]
+}
