@@ -1,3 +1,5 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import cors from "cors";
 import express from "express";
 import { randomUUID } from "node:crypto";
@@ -168,7 +170,11 @@ export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }
 }
 
 function isDirectRun(): boolean {
-  return process.argv[1]?.endsWith("server.ts") ?? false;
+  const entry = process.argv[1];
+  if (!entry) return false;
+  // tsx: argv ends with server.ts; production: node dist/server.js
+  const thisFile = fileURLToPath(import.meta.url);
+  return path.resolve(entry) === thisFile;
 }
 
 if (isDirectRun()) {
