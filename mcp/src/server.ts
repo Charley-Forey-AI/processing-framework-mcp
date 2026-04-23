@@ -14,6 +14,14 @@ import { PfClient } from "./client/pfClient.js";
 import { createPfMcpServer } from "./serverFactory.js";
 import { sanitizeForLogs } from "./utils/sanitize.js";
 
+/** Streamable HTTP may send one message or a batch; Studio often sends an array. */
+function requestBodyHasInitialize(body: unknown): boolean {
+  if (Array.isArray(body)) {
+    return body.some((msg) => isInitializeRequest(msg));
+  }
+  return isInitializeRequest(body);
+}
+
 export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }> {
   const config = loadConfig();
   const tokenStore = new TokenStore(config.tidTokenFile);
@@ -63,7 +71,7 @@ export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }
     if (sessionId && transports[sessionId]) {
       transport = transports[sessionId];
       sessionLastSeen[sessionId] = Date.now();
-    } else if (!sessionId && isInitializeRequest(req.body)) {
+    } else if (!sessionId && requestBodyHasInitialize(req.body)) {
       transport = new StreamableHTTPServerTransport({
         sessionIdGenerator: () => randomUUID(),
         onsessioninitialized: (newSessionId) => {
