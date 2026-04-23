@@ -22,6 +22,24 @@ function requestBodyHasInitialize(body: unknown): boolean {
   return isInitializeRequest(body);
 }
 
+/**
+ * MCP Streamable HTTP (SDK) requires Accept to list both application/json and text/event-stream.
+ * Some clients send only application/json → 406 and no tools. Normalize before handleRequest.
+ */
+function ensureStreamableHttpAccept(req: express.Request): void {
+  const raw = req.headers.accept as string | string[] | undefined;
+  let v = "";
+  if (typeof raw === "string") {
+    v = raw;
+  } else if (Array.isArray(raw)) {
+    v = raw.join(", ");
+  }
+  const lower = v.toLowerCase();
+  if (!lower.includes("application/json") || !lower.includes("text/event-stream")) {
+    req.headers.accept = "application/json, text/event-stream";
+  }
+}
+
 export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }> {
   const config = loadConfig();
   const tokenStore = new TokenStore(config.tidTokenFile);
@@ -65,6 +83,7 @@ export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }
   });
 
   const handlePost = async (req: express.Request, res: express.Response): Promise<void> => {
+    ensureStreamableHttpAccept(req);
     const sessionId = req.headers["mcp-session-id"] as string | undefined;
     let transport: StreamableHTTPServerTransport;
 
@@ -111,6 +130,7 @@ export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }
     req: express.Request,
     res: express.Response,
   ): Promise<void> => {
+    ensureStreamableHttpAccept(req);
     const sessionId = req.headers["mcp-session-id"] as string | undefined;
     if (!sessionId || !transports[sessionId]) {
       res.status(400).send("Invalid or missing session ID");
@@ -123,9 +143,15 @@ export async function startPfMcpServer(): Promise<{ close: () => Promise<void> }
     });
   };
 
-  app.post(config.mcpPath, handlePost);
-  app.get(config.mcpPath, handleSessionRequest);
-  app.delete(config.mcpPath, handleSessionRequest);
+  const mcpPaths =
+    config.mcpPath.endsWith("/") || config.mcpPath === "/"
+      ? [config.mcpPath]
+      : [config.mcpPath, `${config.mcpPath}/`];
+  for (const path of mcpPaths) {
+    app.post(path, handlePost);
+    app.get(path, handleSessionRequest);
+    app.delete(path, handleSessionRequest);
+  }
 
   setInterval(() => {
     const cutoff = Date.now() - config.mcpSessionTtlMs;
